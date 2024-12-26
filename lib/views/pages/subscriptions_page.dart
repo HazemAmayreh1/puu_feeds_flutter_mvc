@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '/controllers/subscriptions_controller.dart';
 import '/models/subscription.dart';
 
@@ -30,8 +29,7 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
       setState(() {
         isLoading = false;
       });
-      // Display error
-      print('Error: $e');
+
     }
   }
 
@@ -100,6 +98,12 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
                                       'Lecturer: ${subscription.lecturer}',
                                       style: TextStyle(fontSize: 16, color: Colors.grey[800]),
                                     ),
+                                     SizedBox(height: 8),
+                                    Text(
+                                      'Collage: College Of IT and Computer Engineering',
+                                      style: TextStyle(fontSize: 16, color: Colors.grey[800]),
+                                    ),
+                                    
                                     SizedBox(height: 8),
                                     Row(
                                       children: [

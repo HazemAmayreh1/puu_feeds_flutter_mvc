@@ -5,9 +5,9 @@ import '../widgets/course_card.dart';
 import '../pages/course_section_page.dart'; 
 
 class FeedsPage extends StatefulWidget {
-  final int? courseId;  // استلام courseId
+  final int? courseId;  
 
-  FeedsPage({this.courseId});  // تمريرها عبر constructor
+  FeedsPage({this.courseId});  
 
   @override
   _FeedsPageState createState() => _FeedsPageState();
@@ -65,16 +65,16 @@ class _FeedsPageState extends State<FeedsPage> {
           ),
         ),
         iconTheme: IconThemeData(
-          color: Colors.white, // اللون الأبيض للرموز في الـ AppBar
+          color: Colors.white, 
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, '/home');  // العودة إلى صفحة الـ Home
+            Navigator.pushReplacementNamed(context, '/home');  
           },
         ),
       ),
-      backgroundColor: Colors.indigo,  // إضافة الخلفية باللون indigo
+      backgroundColor: Colors.indigo,  
       body: Container(
         color: Colors.grey[100],
         child: Column(
@@ -99,7 +99,7 @@ class _FeedsPageState extends State<FeedsPage> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                             child: CourseCard(
-                              image: getCourseImage(course.name),  // استخدام الدالة هنا للحصول على الصورة
+                              image: getCourseImage(course.name),  
                               name: course.name,
                               college: course.college,
                             ),

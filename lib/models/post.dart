@@ -11,17 +11,17 @@ class Post {
     required this.datePosted,
   });
 
-  // لتحويل JSON إلى كائن Post
+
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      id: json['id'],
-      body: json['body'],
-      author: json['author'],
-      datePosted: json['date_posted'],
+      id: json['id'] ??0,
+      body: json['body'] ?? "",
+      author: json['author'] ?? "",
+      datePosted: json['date_posted'] ,
     );
   }
 
-  // لتحويل كائن Post إلى JSON
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

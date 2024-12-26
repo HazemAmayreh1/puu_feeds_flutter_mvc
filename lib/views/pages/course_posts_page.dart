@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_flutter/controllers/course_posts_controller.dart'; // استيراد الكنترولر
+import 'package:project_flutter/controllers/course_posts_controller.dart';
 import 'package:project_flutter/views/pages/course_comments_page.dart';
-import 'package:project_flutter/views/widgets/post_list.dart'; // استيراد widget لعرض المنشورات
-import 'package:project_flutter/models/post.dart'; // استيراد النموذج
-
+import 'package:project_flutter/views/widgets/post_list.dart'; 
+import 'package:project_flutter/models/post.dart'; 
 class CoursePostsPage extends StatefulWidget {
   final int courseId;
   final int sectionId;
@@ -27,7 +26,6 @@ class _CoursePostsPageState extends State<CoursePostsPage> {
     fetchPosts();
   }
 
-  // دالة لتحميل المنشورات
   Future<void> fetchPosts() async {
     try {
       final fetchedPosts =
@@ -42,7 +40,6 @@ class _CoursePostsPageState extends State<CoursePostsPage> {
     }
   }
 
-  // دالة لإضافة منشور جديد
   Future<void> createPost() async {
     if (_postController.text.isNotEmpty) {
       try {
@@ -52,7 +49,7 @@ class _CoursePostsPageState extends State<CoursePostsPage> {
           posts.add(Post(
             id: postId!,
             body: _postController.text,
-            author: 'اسم المؤلف هنا',
+            author: '',
             datePosted: DateTime.now().toString(),
           ));
         });
@@ -70,7 +67,6 @@ class _CoursePostsPageState extends State<CoursePostsPage> {
     }
   }
 
-  // دالة لتحديث منشور موجود
   Future<void> updatePost(int postId, String updatedBody) async {
     try {
       await _controller.updatePost(
@@ -83,7 +79,6 @@ class _CoursePostsPageState extends State<CoursePostsPage> {
     }
   }
 
-  // دالة لحذف منشور
   Future<void> deletePost(int postId) async {
     try {
       await _controller.deletePost(widget.courseId, widget.sectionId, postId);

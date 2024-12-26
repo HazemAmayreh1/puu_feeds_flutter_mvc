@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../models/subscription.dart';
+import '../models/course.dart';
 
 class SubscriptionsController {
   final FlutterSecureStorage _storage = FlutterSecureStorage();
@@ -9,6 +10,7 @@ class SubscriptionsController {
 
   Future<List<Subscription>> fetchSubscriptions() async {
     try {
+     
       token = await _storage.read(key: 'session_token');
       if (token == null || token!.isEmpty) {
         throw Exception('Session token not found. Please log in again.');
@@ -32,6 +34,24 @@ class SubscriptionsController {
       }
     } catch (e) {
       throw Exception('Error fetching subscriptions: $e');
+    }
+  }
+
+  Future<Course?> fetchCourseById(String courseId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://feeds.ppu.edu/api/v1/courses/$courseId'),
+        headers: {'Authorization': ' $token'},
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return Course.fromJson(data);
+      } else {
+        throw Exception('Failed to load course with ID $courseId. Status: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching course with ID $courseId: $e');
     }
   }
 }

@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     final errorMessage = await _loginController.login(user);
 
     if (errorMessage == null) {
-      Navigator.pushReplacementNamed(context, '/home');
+       Navigator.pushReplacementNamed(context, '/home');
     } else {
       setState(() {
         _errorMessage = errorMessage;
@@ -45,7 +45,6 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Welcome Section
               Text(
                 'Welcome to PPU Feeds',
                 style: TextStyle(
@@ -64,7 +63,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(height: 40),
-              // Profile Card with Logo
               CircleAvatar(
                 radius: 60,
                 backgroundImage: NetworkImage(
@@ -72,7 +70,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(height: 40),
-              // Main card for login form
               Card(
                 elevation: 12,
                 shape: RoundedRectangleBorder(

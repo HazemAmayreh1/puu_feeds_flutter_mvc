@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '/controllers/CourseSectionController.dart'; 
-import '/models/CourseSectionModel.dart'; 
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../../controllers/course_section_controller.dart'; 
+import '../../models/course_section_model.dart'; 
 import '../pages/course_posts_page.dart';
 
 class CourseSectionPage extends StatefulWidget {
@@ -15,22 +14,22 @@ class CourseSectionPage extends StatefulWidget {
 
 class _CourseSectionPageState extends State<CourseSectionPage> {
   late CourseSectionController _controller;
-  Map<int, bool> subscriptionStatus = {}; // حالة الاشتراك
-  Map<int, int> subscriptionIds = {}; // تخزين subscription_id لكل section
+  Map<int, bool> subscriptionStatus = {};
+  Map<int, int> subscriptionIds = {};
 
   @override
   void initState() {
     super.initState();
     _controller = CourseSectionController();
 
-    // تحميل حالة الاشتراك عند بدء الصفحة
+
     _controller.loadSubscriptionStatus(widget.courseId).then((status) {
       setState(() {
         subscriptionStatus = status;
       });
     });
 
-    // تحميل subscriptionIds عند بدء الصفحة
+
     _controller.loadSubscriptionIds(widget.courseId).then((ids) {
       setState(() {
         subscriptionIds = ids;
@@ -116,36 +115,34 @@ class _CourseSectionPageState extends State<CourseSectionPage> {
                               onPressed: () async {
                                 try {
                                   if (isSubscribed) {
-                                    // عند الحذف
                                     final subscriptionId = subscriptionIds[sectionId];
                                     if (subscriptionId != null) {
                                       await _controller.removeSubscription(widget.courseId, sectionId, subscriptionId);
                                       setState(() {
-                                        subscriptionStatus[sectionId] = false; // تحديث حالة الاشتراك
-                                        subscriptionIds.remove(sectionId); // إزالة الـ subscriptionId
+                                        subscriptionStatus[sectionId] = false; 
+                                        subscriptionIds.remove(sectionId);
                                       });
 
-                                      // حفظ حالة الاشتراك بعد التحديث
+                                    
                                       await _controller.saveSubscriptionStatus(widget.courseId, subscriptionStatus);
 
-                                      // حذف الـ subscriptionId من التخزين المحلي
+                                      
                                       await _controller.saveSubscriptionIds(widget.courseId, subscriptionIds);
                                     } else {
                                       print("Error: subscriptionId is null.");
                                     }
                                   } else {
-                                    // عند الاشتراك
+                                  
                                     final subscriptionId = await _controller.subscribeToSection(widget.courseId, sectionId);
                                     if (subscriptionId != null) {
                                       setState(() {
-                                        subscriptionStatus[sectionId] = true; // تحديث حالة الاشتراك
-                                        subscriptionIds[sectionId] = subscriptionId; // تخزين الـ subscriptionId
+                                        subscriptionStatus[sectionId] = true; 
+                                        subscriptionIds[sectionId] = subscriptionId; 
                                       });
 
-                                      // حفظ حالة الاشتراك بعد التحديث
+                                  
                                       await _controller.saveSubscriptionStatus(widget.courseId, subscriptionStatus);
 
-                                      // حفظ الـ subscriptionId في التخزين المحلي
                                       await _controller.saveSubscriptionIds(widget.courseId, subscriptionIds);
                                     }
                                   }

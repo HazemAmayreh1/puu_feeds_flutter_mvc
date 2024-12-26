@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:project_flutter/models/post.dart'; // استيراد النموذج
+import 'package:project_flutter/models/post.dart'; 
 
 class PostList extends StatelessWidget {
   final List<Post> posts;
-  final Function(int postId, String updatedBody) onUpdate; // دالة التحديث
-  final Function(int postId) onDelete; // دالة الحذف
-  final Function(int postId) onTap; // دالة عند الضغط على المنشور
+  final Function(int postId, String updatedBody) onUpdate; 
+  final Function(int postId) onDelete;
+  final Function(int postId) onTap; 
 
   PostList({
     required this.posts,

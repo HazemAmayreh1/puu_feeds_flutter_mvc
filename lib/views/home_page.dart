@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.notifications, color: Colors.white),
             onPressed: () {
-              // Handle notifications
+             
             },
           ),
         ],
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
             return IconButton(
               icon: Icon(Icons.menu, color: Colors.white),
               onPressed: () {
-                Scaffold.of(context).openDrawer(); // Use this context to open the drawer
+                Scaffold.of(context).openDrawer(); 
               },
             );
           },
@@ -37,7 +37,6 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Banner Image
               Container(
                 width: double.infinity,
                 height: 150,
@@ -63,7 +62,6 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(fontSize: 18, height: 1.6),
               ),
               SizedBox(height: 20),
-              // Logo Image
               Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
@@ -205,7 +203,7 @@ class FeatureCardItem extends StatelessWidget {
 }
 
 class AppDrawer extends StatelessWidget {
-  final _storage = FlutterSecureStorage(); // To access secure storage for logout
+  final _storage = FlutterSecureStorage(); 
 
   @override
   Widget build(BuildContext context) {
@@ -272,21 +270,21 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.settings, color: Colors.indigo),
             title: Text('Settings'),
             onTap: () {
-              // Navigate to settings page
+             
             },
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app, color: Colors.indigo),
             title: Text('Logout'),
             onTap: () async {
-              // Clear session data
+            
               await _storage.delete(key: 'session_token');
 
-              // Ensure proper navigation after logout
+             
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 '/', 
-                (route) => false, // Remove all routes
+                (route) => false, 
               );
             },
           ),

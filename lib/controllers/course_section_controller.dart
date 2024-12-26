@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:project_flutter/models/CourseSectionModel.dart';
+import 'package:project_flutter/models/course_section_model.dart';
 
 class CourseSectionController {
   final FlutterSecureStorage _storage = FlutterSecureStorage();
 
-  // دالة لتحميل حالة الاشتراك
   Future<Map<int, bool>> loadSubscriptionStatus(int courseId) async {
     try {
       String? subscriptionData = await _storage.read(key: 'subscription_status_$courseId');
@@ -15,14 +14,13 @@ class CourseSectionController {
         Map<String, dynamic> decodedData = jsonDecode(subscriptionData);
         return decodedData.map((key, value) => MapEntry(int.parse(key), value));
       }
-      return {};  // إرجاع خريطة فارغة إذا لم توجد بيانات
+      return {};  
     } catch (e) {
       print('Error loading subscription status: $e');
-      return {};  // إرجاع خريطة فارغة في حالة حدوث خطأ
+      return {};  
     }
   }
 
-  // دالة لحفظ حالة الاشتراك
   Future<void> saveSubscriptionStatus(int courseId, Map<int, bool> status) async {
     try {
       String encodedData = jsonEncode(status.map((key, value) => MapEntry(key.toString(), value)));
@@ -33,7 +31,6 @@ class CourseSectionController {
     }
   }
 
-  // دالة لتحميل subscriptionIds
   Future<Map<int, int>> loadSubscriptionIds(int courseId) async {
     try {
       String? subscriptionIdData = await _storage.read(key: 'subscription_ids_$courseId');
@@ -41,14 +38,13 @@ class CourseSectionController {
         Map<String, dynamic> decodedData = jsonDecode(subscriptionIdData);
         return decodedData.map((key, value) => MapEntry(int.parse(key), value));
       }
-      return {};  // إرجاع خريطة فارغة إذا لم توجد بيانات
+      return {};  
     } catch (e) {
       print('Error loading subscription IDs: $e');
-      return {};  // إرجاع خريطة فارغة في حالة حدوث خطأ
+      return {}; 
     }
   }
 
-  // دالة لحفظ subscriptionIds
   Future<void> saveSubscriptionIds(int courseId, Map<int, int> subscriptionIds) async {
     try {
       String encodedData = jsonEncode(subscriptionIds.map((key, value) => MapEntry(key.toString(), value)));
@@ -58,7 +54,6 @@ class CourseSectionController {
     }
   }
 
-  // دالة لتحميل الأقسام
   Future<List<CourseSection>> fetchSections(int courseId) async {
     try {
       String? token = await _storage.read(key: 'session_token');
@@ -88,7 +83,6 @@ class CourseSectionController {
     }
   }
 
-  // دالة للاشتراك في القسم
   Future<int?> subscribeToSection(int courseId, int sectionId) async {
     String? token = await _storage.read(key: 'session_token');
     if (token == null || token.isEmpty) {
@@ -104,14 +98,12 @@ class CourseSectionController {
       final data = json.decode(response.body);
       if (data.containsKey('subscription_id')) {
         int subscriptionId = data['subscription_id'];
-
-        // تخزين الـ subscriptionId باستخدام courseId و sectionId بشكل صحيح
         await _storage.write(
-          key: 'subscription_id_${courseId}_$sectionId',  // تأكد من استخدام التنسيق الصحيح
+          key: 'subscription_id_${courseId}_$sectionId',  
           value: subscriptionId.toString()
         );
 
-        return subscriptionId;  // إرجاع الـ subscriptionId
+        return subscriptionId;  
       } else {
         throw Exception('No subscription ID found.');
       }
@@ -120,7 +112,6 @@ class CourseSectionController {
     }
   }
 
-  // دالة لإلغاء الاشتراك
   Future<void> removeSubscription(int courseId, int sectionId, int subscriptionId) async {
     String? token = await _storage.read(key: 'session_token');
     if (token == null || token.isEmpty) {
@@ -133,7 +124,6 @@ class CourseSectionController {
     );
 
     if (response.statusCode == 200) {
-      // إزالة الـ subscriptionId من الـ FlutterSecureStorage عند إلغاء الاشتراك
       await _storage.delete(key: 'subscription_id_${courseId}_$sectionId');
     } else {
       throw Exception('Failed to unsubscribe from section. Status: ${response.statusCode}');

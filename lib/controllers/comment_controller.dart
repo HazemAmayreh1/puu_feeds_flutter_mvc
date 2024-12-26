@@ -84,7 +84,6 @@ class CommentController {
 
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
-        // Optionally handle the comment ID returned in response
         print('Comment added with ID: ${responseData['comment_id']}');
       } else {
         throw Exception('Failed to add comment.');

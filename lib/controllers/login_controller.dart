@@ -19,7 +19,7 @@ class LoginController {
         if (data['session_token'] != null) {
           final token = data['session_token'];
           await _storage.write(key: 'session_token', value: token);
-          return null; // Login successful, no error message
+          return null; 
         } else {
           return 'Invalid email or password';
         }

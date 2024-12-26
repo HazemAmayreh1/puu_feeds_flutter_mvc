@@ -13,10 +13,10 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
-      id: json['id'].toString(),  // التأكد من تحويل id إلى String
+      id: json['id'].toString(), 
       name: json['name'],
-      college: json['college'] ?? 'No college specified',  // قيمة افتراضية في حال كانت القيمة null
-      imageUrl: json['image_url'] ?? 'assets/course_images/default_course_image.png',  // قيمة افتراضية للصورة
+      college: json['college'], 
+      imageUrl: json['image_url'] ?? 'assets/course_images/default_course_image.png', 
     );
   }
 }

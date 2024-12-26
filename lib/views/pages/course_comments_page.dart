@@ -43,9 +43,7 @@ class _CourseCommentsPageState extends State<CourseCommentsPage> {
     try {
       List<Comment> comments = await _controller.fetchComments();
       for (var comment in comments) {
-        // التحقق من حالة الإعجاب لكل تعليق
         comment.isLiked = await _controller.checkIfLiked(comment.id);
-        // تحميل عدد الإعجابات لكل تعليق
         comment.likesCount = await _controller.getLikesCount(comment.id);
       }
 
@@ -101,7 +99,7 @@ class _CourseCommentsPageState extends State<CourseCommentsPage> {
 
   void _toggleLike(Comment comment) async {
     try {
-      await _controller.toggleLike(comment);  // Update like status via API
+      await _controller.toggleLike(comment);  
       setState(() {
         comment.isLiked = !comment.isLiked;
         comment.likesCount += comment.isLiked ? 1 : -1;
@@ -111,7 +109,6 @@ class _CourseCommentsPageState extends State<CourseCommentsPage> {
     }
   }
 
-  // إضافة وظيفة تعديل التعليق
   void _showEditCommentDialog(Comment comment) {
     TextEditingController _commentController = TextEditingController(text: comment.body);
     showDialog(
@@ -148,7 +145,6 @@ class _CourseCommentsPageState extends State<CourseCommentsPage> {
     );
   }
 
-  // إضافة وظيفة حذف التعليق
   void _showDeleteConfirmationDialog(Comment comment) {
     showDialog(
       context: context,
@@ -181,14 +177,14 @@ class _CourseCommentsPageState extends State<CourseCommentsPage> {
       appBar: AppBar(
         title: Text('Comments', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.indigo,
-        iconTheme: IconThemeData(color: Colors.white), // تغيير لون السهم إلى الأبيض
+        iconTheme: IconThemeData(color: Colors.white), 
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, // وضع الزر في المركز السفلي
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, 
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),  // إبعاد الأيقونة عن التعليقات
+        padding: const EdgeInsets.only(bottom: 20.0),  
         child: FloatingActionButton(
           onPressed: _showAddCommentDialog,
-          child: Icon(Icons.add, color: Colors.white), // تغيير اللون الأبيض
+          child: Icon(Icons.add, color: Colors.white), 
           backgroundColor: Colors.indigo,
         ),
       ),

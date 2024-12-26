@@ -13,7 +13,7 @@ class Subscription {
 
   factory Subscription.fromJson(Map<String, dynamic> json) {
     return Subscription(
-      section: json['section'] ?? 'Unnamed Section',
+      section: json['section'],
       course: json['course'] ?? 'Unnamed Course',
       lecturer: json['lecturer'] ?? 'Unknown Lecturer',
       subscriptionDate: json['subscription_date'] ?? 'Unknown Date',
